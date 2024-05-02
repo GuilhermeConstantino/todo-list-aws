@@ -4,8 +4,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../domain/entities/todo.dart';
 import '../models/todo_model.dart';
 
-class TodoLocal {
-  // TODO: implement failure class to catch errors
+class LocalTodo {
+  // TODO: implement failure class in core to catch errors
   static const String _keyPrefix = 'todo_';
   static const String _highestIdKey = 'highest_id';
 
@@ -51,7 +51,11 @@ class TodoLocal {
   }
 
   Future<void> addTodo(TodoModel todo) async {
+    final highestId = await getHighestId();
+    final newId = highestId + 1;
+    todo = todo.copyWith(id: newId);
     await saveTodo(todo);
+    await setHighestId(newId);
   }
 
   Future<void> editTodo(TodoModel newTodo) async {
