@@ -9,14 +9,6 @@ part of 'todo_list_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$TodoListController on TodoListControllerBase, Store {
-  Computed<List<TodoModel>>? _$todoModelsComputed;
-
-  @override
-  List<TodoModel> get todoModels => (_$todoModelsComputed ??=
-          Computed<List<TodoModel>>(() => super.todoModels,
-              name: 'TodoListControllerBase.todoModels'))
-      .value;
-
   late final _$todosAtom =
       Atom(name: 'TodoListControllerBase.todos', context: context);
 
@@ -33,47 +25,59 @@ mixin _$TodoListController on TodoListControllerBase, Store {
     });
   }
 
-  late final _$TodoListControllerBaseActionController =
-      ActionController(name: 'TodoListControllerBase', context: context);
+  late final _$pageLoadingStateAtom =
+      Atom(name: 'TodoListControllerBase.pageLoadingState', context: context);
 
   @override
-  void addTodo(Todo todo) {
-    final _$actionInfo = _$TodoListControllerBaseActionController.startAction(
-        name: 'TodoListControllerBase.addTodo');
-    try {
-      return super.addTodo(todo);
-    } finally {
-      _$TodoListControllerBaseActionController.endAction(_$actionInfo);
-    }
+  LoadingState get pageLoadingState {
+    _$pageLoadingStateAtom.reportRead();
+    return super.pageLoadingState;
   }
 
   @override
-  void removeTodo(Todo todo) {
-    final _$actionInfo = _$TodoListControllerBaseActionController.startAction(
-        name: 'TodoListControllerBase.removeTodo');
-    try {
-      return super.removeTodo(todo);
-    } finally {
-      _$TodoListControllerBaseActionController.endAction(_$actionInfo);
-    }
+  set pageLoadingState(LoadingState value) {
+    _$pageLoadingStateAtom.reportWrite(value, super.pageLoadingState, () {
+      super.pageLoadingState = value;
+    });
   }
 
+  late final _$getDataAsyncAction =
+      AsyncAction('TodoListControllerBase.getData', context: context);
+
   @override
-  void updateTodo(Todo todo) {
-    final _$actionInfo = _$TodoListControllerBaseActionController.startAction(
-        name: 'TodoListControllerBase.updateTodo');
-    try {
-      return super.updateTodo(todo);
-    } finally {
-      _$TodoListControllerBaseActionController.endAction(_$actionInfo);
-    }
+  Future getData() {
+    return _$getDataAsyncAction.run(() => super.getData());
+  }
+
+  late final _$addTodoAsyncAction =
+      AsyncAction('TodoListControllerBase.addTodo', context: context);
+
+  @override
+  Future addTodo(Todo todo) {
+    return _$addTodoAsyncAction.run(() => super.addTodo(todo));
+  }
+
+  late final _$removeTodoAsyncAction =
+      AsyncAction('TodoListControllerBase.removeTodo', context: context);
+
+  @override
+  Future removeTodo(Todo todo) {
+    return _$removeTodoAsyncAction.run(() => super.removeTodo(todo));
+  }
+
+  late final _$updateTodoAsyncAction =
+      AsyncAction('TodoListControllerBase.updateTodo', context: context);
+
+  @override
+  Future updateTodo(Todo todo) {
+    return _$updateTodoAsyncAction.run(() => super.updateTodo(todo));
   }
 
   @override
   String toString() {
     return '''
 todos: ${todos},
-todoModels: ${todoModels}
+pageLoadingState: ${pageLoadingState}
     ''';
   }
 }

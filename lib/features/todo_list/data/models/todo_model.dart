@@ -1,4 +1,4 @@
-import 'package:todo_list/features/todo_list/domain/entities/todo.dart';
+import '../../domain/entities/todo.dart';
 
 class TodoModel extends Todo {
   TodoModel(
@@ -32,5 +32,20 @@ class TodoModel extends Todo {
       'description': description,
       'isCompleted': isCompleted,
     };
+  }
+
+  @override
+  TodoModel copyWith({
+    int? id,
+    String? title,
+    String? description,
+    bool? isCompleted,
+  }) {
+    return TodoModel(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      isCompleted: isCompleted ?? this.isCompleted,
+    );
   }
 }

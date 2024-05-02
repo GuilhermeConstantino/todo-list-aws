@@ -1,36 +1,36 @@
-import 'package:todo_list/features/todo_list/data/datasources/todo_local.dart';
-import 'package:todo_list/features/todo_list/domain/entities/todo.dart';
-import 'package:todo_list/features/todo_list/domain/repositories/todo_repository.dart';
+import '../datasources/local_todo.dart';
+import '../../domain/entities/todo.dart';
+import '../../domain/repositories/todo_repository.dart';
 
 import '../models/todo_model.dart';
 
 class TodoRepositoryImpl extends TodoRepository {
-  final TodoLocal todoLocal;
+  final LocalTodo localTodo;
 
-  TodoRepositoryImpl({required this.todoLocal});
+  TodoRepositoryImpl({required this.localTodo});
 
   @override
   Future<bool> addTodo(Todo todo) async {
     TodoModel todoModel = TodoModel.fromTodo(todo);
-    todoLocal.addTodo(todoModel);
+    localTodo.addTodo(todoModel);
     return true;
   }
 
   @override
   Future<bool> editTodo(Todo todo) async {
     TodoModel todoModel = TodoModel.fromTodo(todo);
-    todoLocal.editTodo(todoModel);
+    localTodo.editTodo(todoModel);
     return true;
   }
 
   @override
   Future<List<Todo>> getAllTodos() async {
-    return await todoLocal.getAllTodos();
+    return await localTodo.getAllTodos();
   }
 
   @override
   Future<bool> removeTodo(int id) async {
-    todoLocal.removeTodoById(id);
+    localTodo.removeTodoById(id);
     return true;
   }
 }

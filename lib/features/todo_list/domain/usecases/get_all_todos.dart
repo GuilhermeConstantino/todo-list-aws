@@ -1,12 +1,11 @@
-import 'package:todo_list/features/todo_list/domain/entities/todo.dart';
-
 import '../../data/repositories/todo_repository_impl.dart';
+import '../entities/todo.dart';
 
 class GetAllTodos {
-  final TodoRepositoryImpl todoRepository;
+  final TodoRepositoryImpl todoRepositoryImpl;
 
-  GetAllTodos(this.todoRepository);
+  GetAllTodos(this.todoRepositoryImpl);
   Future<List<Todo>> call() async {
-    return todoRepository.getAllTodos();
+    return todoRepositoryImpl.getAllTodos();
   }
 }
