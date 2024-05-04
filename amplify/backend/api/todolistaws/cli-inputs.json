@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "todolistaws",
+    "serviceName": "AppSync",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "keyDescription": "api key description",
+      "expirationTime": 30
+    },
+    "additionalAuthTypes": [
+      {
+        "mode": "AWS_IAM"
+      }
+    ],
+    "conflictResolution": {
+      "defaultResolutionStrategy": {
+        "type": "OPTIMISTIC_CONCURRENCY"
+      },
+      "perModelResolutionStrategy": [
+        {
+          "resolutionStrategy": {
+            "type": "AUTOMERGE"
+          },
+          "entityName": "Todo"
+        }
+      ]
+    }
+  }
+}

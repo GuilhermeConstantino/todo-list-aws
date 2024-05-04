@@ -10,6 +10,11 @@
       "StackName": "amplify-todolistaws-staging-0474a",
       "StackId": "arn:aws:cloudformation:us-east-1:471112787059:stack/amplify-todolistaws-staging-0474a/e7a2e7e0-09ad-11ef-aa7c-0afff868a021",
       "AmplifyAppId": "d1du3fjowiyfwt"
+    },
+    "categories": {
+      "api": {
+        "todolistaws": {}
+      }
     }
   }
 }
