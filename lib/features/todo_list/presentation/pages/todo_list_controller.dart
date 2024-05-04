@@ -1,7 +1,7 @@
 import 'package:mobx/mobx.dart';
+import 'package:todo_list/features/todo_list/data/datasources/aws_todo.dart';
 
 import '../../../../core/loading_state.dart';
-import '../../data/datasources/local_todo.dart';
 import '../../data/repositories/todo_repository_impl.dart';
 import '../../domain/entities/todo.dart';
 import '../../domain/usecases/add_todo.dart';
@@ -21,7 +21,7 @@ abstract class TodoListControllerBase with Store {
   LoadingState pageLoadingState = LoadingState.initial;
 
   TodoRepositoryImpl todoRepositoryImpl =
-      TodoRepositoryImpl(localTodo: LocalTodo());
+      TodoRepositoryImpl(awsTodo: AwsTodo());
 
   @action
   getData() async {
@@ -43,8 +43,8 @@ abstract class TodoListControllerBase with Store {
 
   @action
   removeTodo(Todo todo) async {
-    RemoveTodo addTodo = RemoveTodo(todoRepositoryImpl);
-    bool result = await addTodo.call(todo.id);
+    RemoveTodo removeTodo = RemoveTodo(todoRepositoryImpl);
+    bool result = await removeTodo.call(todo);
     if (result == true) {
       todos.remove(todo);
     }

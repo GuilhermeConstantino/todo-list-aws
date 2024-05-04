@@ -16,7 +16,11 @@ class TodoListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var newTodoForm = TodoForm(
       isNewTodo: true,
-      todo: TodoModel(id: -1, title: '', description: '', isCompleted: false),
+      todo: TodoModel(
+        id: '',
+        title: '',
+        description: '',
+      ),
       newTodoMethod: (Todo todo) {
         todoListController.addTodo(todo);
       },
