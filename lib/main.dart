@@ -11,8 +11,6 @@ import 'package:amplify_api/amplify_api.dart';
 import 'models/ModelProvider.dart';
 import 'amplifyconfiguration.dart';
 
-bool isAmplifyConfigured = false;
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await _configureAmplify();
@@ -20,14 +18,6 @@ void main() async {
   todoListController.getData();
   runApp(MyApp(todoListController: todoListController));
 }
-
-// Future<void> configureAmplify() async {
-//   await Amplify.addPlugin(AmplifyAPI());
-//   await Amplify.addPlugins(
-//       [AmplifyDataStore(modelProvider: ModelProvider.instance)]);
-//   await Amplify.configure(amplifyconfig);
-//   isAmplifyConfigured = true;
-// }
 
 Future<void> _configureAmplify() async {
   try {
